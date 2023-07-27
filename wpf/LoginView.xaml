@@ -1,11 +1,11 @@
-﻿<Window x:Class="wpf.MainWindow"
+﻿<Window x:Class="wpf.LoginView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Style="{StaticResource WindowStyle}">
+        Title="Login" Style="{StaticResource WindowStyle}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -15,8 +15,8 @@
         <!-- First Column -->
         <Border Grid.Column="0" Background="{StaticResource AccentBrush}" VerticalAlignment="Stretch">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="GEZONDHEIDSBOND" Foreground="#F3F3F3" Style="{StaticResource TitleStyle}"/>
-                <TextBlock Text="GROEPSREIZEN" Foreground="#F3F3F3" Style="{StaticResource SubtitleStyle}"/>
+                <TextBlock Text="GEZONDHEIDSBOND" Foreground="{StaticResource SecondaryTextBrush}" Style="{StaticResource TitleStyle}"/>
+                <TextBlock Text="GROEPSREIZEN" Foreground="{StaticResource SecondaryTextBrush}" Style="{StaticResource SubtitleStyle}"/>
             </StackPanel>
         </Border>
 
@@ -26,7 +26,7 @@
                 <TextBox Width="250" Height="50" Margin="0,22,0,10" Style="{StaticResource FieldStyle}" />
                 <PasswordBox Width="250" Height="50" Style="{StaticResource FieldStyle}"/>
                 <Button HorizontalAlignment="Right" Style="{StaticResource SmallButtonStyle}">
-                    INLOGGEN &#x2794;
+                    INLOGGEN 🡪
                 </Button>
             </StackPanel>
         </Border>

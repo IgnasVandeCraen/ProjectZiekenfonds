@@ -57,6 +57,15 @@
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="Margin" Value="0,-10,0,0"/>
     </Style>
+    
+    <!--Header-->
+    <Style x:Key="HeaderStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Padding" Value="10" />
+    </Style>
 
     <!--Field-->
     <Style x:Key="FieldStyle" TargetType="Control" BasedOn="{StaticResource BorderBaseStyle}">
@@ -69,7 +78,24 @@
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
-    
+
+    <!--ButtonStyle-->
+    <Style x:Key="CustomButtonStyle" TargetType="Button">
+        <Setter Property="Foreground" Value="{StaticResource SecondaryTextBrush}" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{StaticResource AccentBrush}" CornerRadius="10" Padding="10">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!--Small Button-->
     <Style x:Key="SmallButtonStyle" TargetType="Button" BasedOn="{StaticResource TextBaseStyle}">
         <Setter Property="Foreground" Value="{StaticResource AccentBrush}"/>
@@ -99,5 +125,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
 </ResourceDictionary>

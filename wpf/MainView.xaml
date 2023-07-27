@@ -1,0 +1,28 @@
+﻿<Window x:Class="wpf.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wpf"
+        mc:Ignorable="d"
+        Title="Gezondheidsbond" Style="{StaticResource WindowStyle}">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--First Row-->
+        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource SmallButtonStyle}">
+            🡨 UITLOGGEN
+        </Button>
+
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top">
+            <TextBlock Text="GEZONDHEIDSBOND" Foreground="{StaticResource PrimaryTextBrush}" Style="{StaticResource TitleStyle}"/>
+            <TextBlock Text="GROEPSREIZEN" Foreground="{StaticResource PrimaryTextBrush}" Style="{StaticResource SubtitleStyle}" HorizontalAlignment="Right"/>
+        </StackPanel>
+
+        <!--Second Row-->
+        <Frame Grid.Row="1" x:Name="mainFrame" NavigationUIVisibility="Hidden"/>
+    </Grid>
+</Window>
