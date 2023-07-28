@@ -74,23 +74,27 @@
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
         <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
-        <Setter Property="Padding" Value="10"/>
+        <Setter Property="Padding" Value="5"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
-    <!--ButtonStyle-->
+    <!--Custom Button-->
     <Style x:Key="CustomButtonStyle" TargetType="Button">
         <Setter Property="Foreground" Value="{StaticResource SecondaryTextBrush}" />
-        <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Background="{StaticResource AccentBrush}" CornerRadius="10" Padding="10">
+                    <Border x:Name="ButtonBorder" Background="{StaticResource AccentBrush}" CornerRadius="10" Padding="10">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ButtonBorder" Property="Background" Value="{StaticResource PrimaryTextBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -113,14 +117,37 @@
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center"
                             TextBlock.Foreground="{TemplateBinding Foreground}" />
-                            <Border x:Name="bottomBorder" Height="2" Background="Transparent" VerticalAlignment="Bottom" />
+                            <Border x:Name="bottomBorder" Height="2" Background="{TemplateBinding Foreground}" VerticalAlignment="Bottom" Visibility="Hidden"/>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="bottomBorder" Property="Background" Value="{StaticResource AccentBrush}" />
+                            <Setter TargetName="bottomBorder" Property="Visibility" Value="Visible" />
                         </Trigger>
                     </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!--Listbox-->
+    <Style x:Key="ListBoxStyle" TargetType="ListBox">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="BorderBrush" Value="Blue"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBox">
+                    <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <ItemsPresenter />
+                        </ScrollViewer>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

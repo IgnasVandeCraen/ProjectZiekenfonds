@@ -10,12 +10,12 @@
 
     <Grid>
         <DockPanel Grid.Row="1" LastChildFill="True">
-            <Button DockPanel.Dock="Bottom" HorizontalAlignment="Right" Style="{StaticResource SmallButtonStyle}">
+            <Button Click="AdminPaneel_Click" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Style="{StaticResource SmallButtonStyle}">
                 ADMIN PANEEL 🡪
             </Button>
             <StackPanel DockPanel.Dock="Top">
-                <DockPanel LastChildFill="True">
-                    <Button DockPanel.Dock="Right" Style="{StaticResource CustomButtonStyle}">profiel</Button>
+                <DockPanel LastChildFill="True" Margin="0,0,0,10">
+                    <Button Click="Profiel_Click" DockPanel.Dock="Right" Style="{StaticResource CustomButtonStyle}">Profiel</Button>
                     <Border Background="{StaticResource PrimaryBrush}" CornerRadius="10" Height="40" Margin="0,0,10,0">
                         <TextBlock Text="Ons aanbod" Style="{StaticResource HeaderStyle}"/>
                     </Border>

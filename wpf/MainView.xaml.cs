@@ -22,7 +22,12 @@ namespace wpf
         public MainView()
         {
             InitializeComponent();
-            mainFrame.Navigate(new Uri("GroepsreizenView.xaml", UriKind.Relative));
+            mainFrame.NavigationService.Navigate(new GroepsreizenView());
+        }
+
+        private void Uitloggen_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

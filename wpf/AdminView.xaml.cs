@@ -16,23 +16,28 @@ using System.Windows.Shapes;
 namespace wpf
 {
     /// <summary>
-    /// Interaction logic for GroepsreizenView.xaml
+    /// Interaction logic for AdminView.xaml
     /// </summary>
-    public partial class GroepsreizenView : Page
+    public partial class AdminView : Page
     {
-        public GroepsreizenView()
+        public AdminView()
         {
             InitializeComponent();
         }
 
-        private void Profiel_Click(object sender, RoutedEventArgs e)
+        private void Terug_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new GroepsreizenView());
         }
 
-        private void AdminPaneel_Click(object sender, RoutedEventArgs e)
+        private void Gebruikers_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AdminView());
+            adminFrame.NavigationService.Navigate(new AdminGebruikersView());
+        }
+
+        private void Reizen_Click(object sender, RoutedEventArgs e)
+        {
+            adminFrame.NavigationService.Navigate(new ThirdPage());
         }
     }
 }

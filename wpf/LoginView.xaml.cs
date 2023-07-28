@@ -23,5 +23,10 @@ namespace wpf
         {
             InitializeComponent();
         }
+
+        private void Inloggen_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
