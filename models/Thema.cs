@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,9 @@ namespace models
     {
         //Properties
         public int Id { get; set; }
+
+        [Required]
+        [MaxLength(50)]
         public string Naam { get; set; }
         public Color Kleur { get; set; }
     }
