@@ -37,7 +37,6 @@ namespace wpf
 
         private void Reizen_Click(object sender, RoutedEventArgs e)
         {
-            adminFrame.NavigationService.Navigate(new ThirdPage());
         }
     }
 }
