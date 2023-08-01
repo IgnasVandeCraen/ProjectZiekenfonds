@@ -16,6 +16,16 @@ namespace models
         [Required]
         [MaxLength(50)]
         public string Naam { get; set; }
-        public Color Kleur { get; set; }
+
+        [MaxLength(6)]
+        public string KleurHex { get; set; }
+
+        Thema()
+        {
+            KleurHex="E1E1E1";
+        }
+
+        //Navigatieproperties
+        public ICollection<Groepsreis> Groepsreizen { get; set; }
     }
 }

@@ -14,14 +14,14 @@ namespace models
         //Properties
         public int Id { get; set; }
 
-        //FK naar Groepsreis
         [Required]
         public int GroepsreisId { get; set; }
-        public Groepsreis Groepsreis { get; set; }
 
-        //FK naar Gebruiker
         [Required]
         public int GebruikerId { get; set; }
+
+        //Navigatieproperties
+        public Groepsreis Groepsreis { get; set; }
         public Gebruiker Gebruiker { get; set; }
     }
 }

@@ -35,13 +35,12 @@ namespace models
         [Required]
         public DateTime Aanmaakdatum { get; set; }
 
-        //FK naar Leeftijdscategorie
         [Required]
         public int LeeftijdscategorieId { get; set; }
-        public Leeftijdscategorie Leeftijdscategorie { get; set; }
 
-        //Veel-op-veel relatie naar Inschrijving
+        //Navigatieproperties
         public ICollection<Inschrijving> Inschrijvingen { get; set; }
+        public Leeftijdscategorie Leeftijdscategorie { get; set; }
 
 
         public Gebruiker()

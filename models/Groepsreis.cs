@@ -34,23 +34,18 @@ namespace models
 
         public DateTime Aanmaakdatum { get; set; }
 
-        //FK naar Leeftijdscategorie
         [Required]
         public int LeeftijdscategorieId { get; set; }
-        public Leeftijdscategorie Leeftijdscategorie { get; set; }
 
-        //FK naar Bestemming
-        [Required]
-        public int BestemmingId { get; set; }
-        public Bestemming Bestemming { get; set; }
+        public int? BestemmingId { get; set; }
 
-        //FK naar Thema
-        [Required]
-        public int ThemaId { get; set; }
-        public Thema Thema { get; set; }
+        public int? ThemaId { get; set; }
 
-        //Veel-op-veel relatie naar Inschrijving
+        //Navigatieproperties
         public ICollection<Inschrijving> Inschrijvingen { get; set; }
+        public Leeftijdscategorie Leeftijdscategorie { get; set; }
+        public Bestemming? Bestemming { get; set; }
+        public Thema? Thema { get; set; }
 
         public Groepsreis()
         {

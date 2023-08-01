@@ -24,5 +24,9 @@ namespace models
         [Required]
         [Range(0, 100)]
         public int MaxLeeftijd { get; set; }
+
+        //Navigatieproperties
+        public ICollection<Groepsreis> Groepsreizen { get; set; }
+        public ICollection<Gebruiker> Gebruikers { get; set; }
     }
 }

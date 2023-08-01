@@ -29,5 +29,8 @@ namespace models
         [Required]
         [MaxLength(50)]
         public string Land { get; set; }
+
+        //Navigatieproperties
+        public ICollection<Groepsreis> Groepsreizen { get; set; }
     }
 }
