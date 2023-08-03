@@ -11,9 +11,14 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="110"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
         <!-- First Column -->
-        <Border Grid.Column="0" Background="{StaticResource AccentBrush}" VerticalAlignment="Stretch">
+        <Border Grid.Column="0" Grid.RowSpan="3" Background="{StaticResource AccentBrush}" VerticalAlignment="Stretch">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="GEZONDHEIDSBOND" Foreground="{StaticResource SecondaryTextBrush}" Style="{StaticResource TitleStyle}"/>
                 <TextBlock Text="GROEPSREIZEN" Foreground="{StaticResource SecondaryTextBrush}" Style="{StaticResource SubtitleStyle}"/>
@@ -21,14 +26,16 @@
         </Border>
 
         <!-- Second Column -->
-        <Border Grid.Column="1" Background="White" VerticalAlignment="Center">
-            <StackPanel HorizontalAlignment="Center">
-                <TextBox Width="250" Height="50" Margin="0,22,0,10" Style="{StaticResource FieldStyle}" />
-                <PasswordBox Width="250" Height="50" Style="{StaticResource FieldStyle}"/>
-                <Button Click="Inloggen_Click" HorizontalAlignment="Right" Style="{StaticResource SmallButtonStyle}">
-                    INLOGGEN 🡪
-                </Button>
-            </StackPanel>
-        </Border>
+        <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" Width="250" Height="50" Margin="0,0,0,10" Style="{StaticResource FieldStyle}" />
+            <TextBox Text="{Binding Wachtwoord, UpdateSourceTrigger=PropertyChanged}" Width="250" Height="50" Style="{StaticResource FieldStyle}" />
+            <!--<PasswordBox Password="{Binding Wachtwoord, UpdateSourceTrigger=PropertyChanged}" Width="250" Height="50" Style="{StaticResource FieldStyle}"/>-->
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="2" Width="250">
+            <Button x:Name="btnInloggen" Command="{Binding}" CommandParameter="Inloggen" HorizontalAlignment="Right" Style="{StaticResource SmallButtonStyle}">
+                INLOGGEN 🡪
+            </Button>
+            <Label Content="{Binding ErrorMessage, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Foreground="Red"/>
+        </StackPanel>
     </Grid>
 </Window>

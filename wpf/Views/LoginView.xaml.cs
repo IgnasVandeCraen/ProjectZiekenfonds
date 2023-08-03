@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using wpf.Viewmodels;
 
 namespace wpf
 {
@@ -22,11 +23,8 @@ namespace wpf
         public LoginView()
         {
             InitializeComponent();
-        }
 
-        private void Inloggen_Click(object sender, RoutedEventArgs e)
-        {
-
+            this.DataContext = new LoginViewmodel();
         }
     }
 }

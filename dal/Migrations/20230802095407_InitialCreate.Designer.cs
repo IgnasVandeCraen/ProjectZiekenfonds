@@ -12,7 +12,7 @@ using dal;
 namespace dal.Migrations
 {
     [DbContext(typeof(GroepsreizenBeheerContext))]
-    [Migration("20230801102256_InitialCreate")]
+    [Migration("20230802095407_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -134,6 +134,9 @@ namespace dal.Migrations
                     b.Property<int>("LeeftijdscategorieId")
                         .HasColumnType("int");
 
+                    b.Property<int>("MaxInschrijvingen")
+                        .HasColumnType("int");
+
                     b.Property<string>("Naam")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -203,7 +206,7 @@ namespace dal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Leeftijdscategorien");
+                    b.ToTable("Leeftijdscategorieen");
                 });
 
             modelBuilder.Entity("models.Thema", b =>

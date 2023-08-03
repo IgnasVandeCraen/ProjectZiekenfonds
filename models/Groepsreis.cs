@@ -29,6 +29,10 @@ namespace models
         public DateTime Einddatum { get; set; }
 
         [Required]
+        [Range(2, 6)]
+        public int MaxInschrijvingen { get; set; }
+
+        [Required]
         [Column(TypeName = "money")]
         public decimal Prijs { get; set; }
 

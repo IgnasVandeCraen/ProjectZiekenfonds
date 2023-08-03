@@ -28,7 +28,7 @@ namespace dal.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Leeftijdscategorien",
+                name: "Leeftijdscategorieen",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -39,7 +39,7 @@ namespace dal.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Leeftijdscategorien", x => x.Id);
+                    table.PrimaryKey("PK_Leeftijdscategorieen", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -76,9 +76,9 @@ namespace dal.Migrations
                 {
                     table.PrimaryKey("PK_Gebruikers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Gebruikers_Leeftijdscategorien_LeeftijdscategorieId",
+                        name: "FK_Gebruikers_Leeftijdscategorieen_LeeftijdscategorieId",
                         column: x => x.LeeftijdscategorieId,
-                        principalTable: "Leeftijdscategorien",
+                        principalTable: "Leeftijdscategorieen",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -93,6 +93,7 @@ namespace dal.Migrations
                     Beschrijving = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Startdatum = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Einddatum = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    MaxInschrijvingen = table.Column<int>(type: "int", nullable: false),
                     Prijs = table.Column<decimal>(type: "money", nullable: false),
                     Aanmaakdatum = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LeeftijdscategorieId = table.Column<int>(type: "int", nullable: false),
@@ -109,9 +110,9 @@ namespace dal.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
-                        name: "FK_Groepsreizen_Leeftijdscategorien_LeeftijdscategorieId",
+                        name: "FK_Groepsreizen_Leeftijdscategorieen_LeeftijdscategorieId",
                         column: x => x.LeeftijdscategorieId,
-                        principalTable: "Leeftijdscategorien",
+                        principalTable: "Leeftijdscategorieen",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -195,7 +196,7 @@ namespace dal.Migrations
                 name: "Bestemmingen");
 
             migrationBuilder.DropTable(
-                name: "Leeftijdscategorien");
+                name: "Leeftijdscategorieen");
 
             migrationBuilder.DropTable(
                 name: "Themas");

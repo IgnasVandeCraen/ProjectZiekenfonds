@@ -131,6 +131,9 @@ namespace dal.Migrations
                     b.Property<int>("LeeftijdscategorieId")
                         .HasColumnType("int");
 
+                    b.Property<int>("MaxInschrijvingen")
+                        .HasColumnType("int");
+
                     b.Property<string>("Naam")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -200,7 +203,7 @@ namespace dal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Leeftijdscategorien");
+                    b.ToTable("Leeftijdscategorieen");
                 });
 
             modelBuilder.Entity("models.Thema", b =>
