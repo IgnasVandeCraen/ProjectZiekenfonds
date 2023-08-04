@@ -22,12 +22,6 @@ namespace wpf
         public MainView()
         {
             InitializeComponent();
-            mainFrame.NavigationService.Navigate(new GroepsreizenView());
-        }
-
-        private void Uitloggen_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

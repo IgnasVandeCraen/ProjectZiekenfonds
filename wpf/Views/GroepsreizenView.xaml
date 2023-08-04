@@ -9,41 +9,98 @@
       Title="GroepsreizenView">
 
     <Grid>
-        <DockPanel Grid.Row="1" LastChildFill="True">
-            <Button Click="AdminPaneel_Click" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Style="{StaticResource SmallButtonStyle}">
+        <DockPanel LastChildFill="True">
+            <Button DockPanel.Dock="Bottom" HorizontalAlignment="Right" Style="{StaticResource SmallButtonStyle}" >
                 ADMIN PANEEL 🡪
             </Button>
-            <StackPanel DockPanel.Dock="Top">
-                <DockPanel LastChildFill="True" Margin="0,0,0,10">
-                    <Button Click="Profiel_Click" DockPanel.Dock="Right" Style="{StaticResource CustomButtonStyle}">Profiel</Button>
-                    <Border Background="{StaticResource PrimaryBrush}" CornerRadius="10" Height="40" Margin="0,0,10,0">
-                        <TextBlock Text="Ons aanbod" Style="{StaticResource HeaderStyle}"/>
-                    </Border>
-                </DockPanel>
-                <StackPanel Orientation="Horizontal">
+            <DockPanel LastChildFill="True" Margin="0,0,0,10" DockPanel.Dock="Top">
+                <Button DockPanel.Dock="Right" Style="{StaticResource CustomButtonStyle}">Profiel</Button>
+                <Border Background="{StaticResource PrimaryBrush}" CornerRadius="10" Height="40" Margin="0,0,10,0">
+                    <TextBlock Text="Ons aanbod" Style="{StaticResource HeaderStyle}"/>
+                </Border>
+            </DockPanel>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                     <!--TODO: Filters-->
                     <TextBlock>FILTERS</TextBlock>
                 </StackPanel>
-                <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                    <!--TODO: Databinding-->
-                    <ItemsControl>
-                        <StackPanel>
-                            <Border Height="100" Margin="0,10,0,0" Background="AliceBlue" CornerRadius="10">
-                                <TextBlock>PLACEHOLDER TEXT</TextBlock>
+
+            <ScrollViewer>
+                <ItemsControl ItemsSource="{Binding LijstGroepsreizen}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#E2F2FD" Padding="10" CornerRadius="10" Margin="0,0,10,10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- First Row -->
+                                    <TextBlock Grid.ColumnSpan="2" Text="{Binding Naam}" 
+                                       Foreground="{StaticResource PrimaryTextBrush}" Style="{StaticResource SubtitleStyle}" 
+                                       Margin="0"/>
+                                    <TextBlock Grid.Column="1" HorizontalAlignment="Right" Foreground="{StaticResource PrimaryTextBrush}" Style="{StaticResource SubtitleStyle}" Margin="0" VerticalAlignment="Center" FontSize="12" FontWeight="Bold">
+                                                <Run Text="PRIJS:" />
+                                                <Run Text="{Binding Prijs, StringFormat={}{0:F2}}" />
+                                                <Run Text="€" />
+                                    </TextBlock>
+
+                                    <!-- Second Row -->
+                                    <StackPanel Grid.Row="1">
+                                        <TextBlock Foreground="{StaticResource PrimaryTextBrush}" FontWeight="Bold" FontSize="10">
+                                            <Run Text="Van:"/>
+                                            <Run Text="{Binding Startdatum, StringFormat='{}{0:dd/MM/yyyy}'}"/>
+                                            <Run Text="Tot:"/>
+                                            <Run Text="{Binding Einddatum, StringFormat='{}{0:dd/MM/yyyy}'}"/>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding Beschrijving}" LineHeight="3" TextWrapping="Wrap"/>
+
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                            <Border CornerRadius="5" Background="White" BorderThickness="1" BorderBrush="{StaticResource PrimaryTextBrush}">
+                                                <Label Content="{Binding Thema.Naam, FallbackValue=Geen thema}" Foreground="{StaticResource PrimaryTextBrush}" FontWeight="Bold" FontSize="10" VerticalAlignment="Center" />
+                                            </Border>
+                                            <Border CornerRadius="5" Background="White" Margin="5,0" BorderThickness="1" BorderBrush="{StaticResource PrimaryTextBrush}">
+                                                <Label Content="{Binding Leeftijdscategorie.Naam}" Foreground="{StaticResource PrimaryTextBrush}" FontWeight="Bold" FontSize="10" VerticalAlignment="Center" />
+                                            </Border>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <TextBlock Grid.Row="1" Foreground="{StaticResource PrimaryTextBrush}" FontSize="10" VerticalAlignment="Bottom">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0}, {1} {2}, {3}">
+                                                <Binding Path="Bestemming.Adres" FallbackValue="Adres ontbreekt"/>
+                                                <Binding Path="Bestemming.Postcode" FallbackValue=""/>
+                                                <Binding Path="Bestemming.Plaats" FallbackValue=""/>
+                                                <Binding Path="Bestemming.Land" FallbackValue=""/>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+
+                                    <StackPanel Grid.Column="1" Grid.Row="1">
+                                        <TextBlock Foreground="{StaticResource PrimaryTextBrush}" FontWeight="Bold" FontSize="10">
+                                            <Run Text="Deelnemers"/>
+                                            <Run Text="2"/>
+                                            <Run Text="/"/>
+                                            <Run Text="{Binding MaxInschrijvingen}"/>
+                                        </TextBlock>
+                                        <TextBlock FontSize="10">Lorem ipsum dolor sit amet, consectetur porttitor.</TextBlock>
+                                        <TextBlock FontSize="10">Lorem ipsum dolor sit amet, consectetur porttitor.</TextBlock>
+                                        <TextBlock FontSize="10">Lorem ipsum dolor sit amet, consectetur porttitor.</TextBlock>
+                                        <TextBlock FontSize="10">Lorem ipsum dolor sit amet, consectetur porttitor.</TextBlock>
+                                        <TextBlock FontSize="10">Lorem ipsum dolor sit amet, consectetur porttitor.</TextBlock>
+                                        <TextBlock FontSize="10">Lorem ipsum dolor sit amet, consectetur porttitor.</TextBlock>
+                                        <Button Style="{StaticResource CustomButtonStyle}" Width="90" Margin="0,10,0,0" HorizontalAlignment="Right">inschrijven</Button>
+                                    </StackPanel>
+                                </Grid>
                             </Border>
-                            <Border Height="100" Margin="0,10,0,0" Background="AliceBlue" CornerRadius="10">
-                                <TextBlock>PLACEHOLDER TEXT</TextBlock>
-                            </Border>
-                            <Border Height="100" Margin="0,10,0,0" Background="AliceBlue" CornerRadius="10">
-                                <TextBlock>PLACEHOLDER TEXT</TextBlock>
-                            </Border>
-                            <Border Height="100" Margin="0,10,0,0" Background="AliceBlue" CornerRadius="10">
-                                <TextBlock>PLACEHOLDER TEXT</TextBlock>
-                            </Border>
-                        </StackPanel>
-                    </ItemsControl>
-                </ScrollViewer>
-            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
         </DockPanel>
     </Grid>
 </Page>

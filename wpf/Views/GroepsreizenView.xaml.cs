@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using wpf.Viewmodels;
 
 namespace wpf
 {
@@ -23,16 +24,7 @@ namespace wpf
         public GroepsreizenView()
         {
             InitializeComponent();
-        }
-
-        private void Profiel_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void AdminPaneel_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new AdminView());
+            this.DataContext = new MainViewmodel();
         }
     }
 }

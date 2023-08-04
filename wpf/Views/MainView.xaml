@@ -13,9 +13,13 @@
         </Grid.RowDefinitions>
 
         <!--First Row-->
-        <Button Click="Uitloggen_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource SmallButtonStyle}">
+        <Button x:Name="btnUitloggen" Command="{Binding}" CommandParameter="Uitloggen" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource SmallButtonStyle}">
             🡨 UITLOGGEN
         </Button>
+        <TextBlock VerticalAlignment="Center" Foreground="{StaticResource PrimaryTextBrush}" FontWeight="Bold">
+            <Run Text="Hallo"/>
+            <Run Text="{Binding Gebruiker.Voornaam}"/>
+        </TextBlock>
 
         <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top">
             <TextBlock Text="GEZONDHEIDSBOND" Foreground="{StaticResource PrimaryTextBrush}" Style="{StaticResource TitleStyle}"/>
@@ -23,6 +27,6 @@
         </StackPanel>
 
         <!--Second Row-->
-        <Frame x:Name="mainFrame" Grid.Row="1" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="mainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Source="{Binding CurrentPage}"/>
     </Grid>
 </Window>

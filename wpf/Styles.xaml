@@ -43,6 +43,7 @@
     <Style x:Key="WindowStyle" TargetType="Window">
         <Setter Property="Height" Value="512"/>
         <Setter Property="Width" Value="720"/>
+        <Setter Property="MinWidth" Value="720"/>
         <Setter Property="FontFamily" Value="Segoe UI"/>
     </Style>
 
@@ -87,7 +88,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="ButtonBorder" Background="{StaticResource AccentBrush}" CornerRadius="10" Padding="10">
+                    <Border x:Name="ButtonBorder" Background="{StaticResource AccentBrush}" CornerRadius="10" Padding="5">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                     <ControlTemplate.Triggers>

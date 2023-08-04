@@ -16,11 +16,11 @@ namespace models
         public string Wachtwoord { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(25)]
         public string Voornaam { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(25)]
         public string Achternaam { get; set; }
 
         [Required]

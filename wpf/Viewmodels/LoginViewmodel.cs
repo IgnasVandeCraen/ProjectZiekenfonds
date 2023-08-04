@@ -50,8 +50,9 @@ namespace wpf.Viewmodels
         }
 
         public LoginViewmodel() {
-            Email = "e-mailadres";
-            Wachtwoord = "wachtwoord";
+            //Veranderen naar placeholders!!
+            Email = "gebruiker1@example.com";
+            Wachtwoord = "wachtwoord1";
         }
 
         public override string this[string columnName]
@@ -71,8 +72,20 @@ namespace wpf.Viewmodels
                 {
                     if (Wachtwoord == g.Wachtwoord)
                     {
-                        Window window = new MainView();
-                        window.Show();
+                        //Main openen
+                        var mainVM = new MainViewmodel();
+                        mainVM.Gebruiker = g;
+
+                        var mainView = new MainView();
+                        mainView.DataContext = mainVM;
+                        mainView.Show();
+
+                        //Login sluiten
+                        var loginView = Application.Current.Windows.OfType<LoginView>().FirstOrDefault();
+                        if (loginView != null)
+                        {
+                            loginView.Close();
+                        }
                     } else
                     {
                         ErrorMessage = "Wachtwoord is niet correct";
@@ -111,7 +124,6 @@ namespace wpf.Viewmodels
             return true;
         }
 
-        //Nakijken
         public override bool CanExecute(object parameter)
         {
             switch (parameter.ToString())
