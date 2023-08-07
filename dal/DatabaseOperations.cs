@@ -1,6 +1,7 @@
 ﻿using Azure.Identity;
 using Microsoft.EntityFrameworkCore;
 using models;
+using System.Collections.ObjectModel;
 
 namespace dal
 {
@@ -15,11 +16,26 @@ namespace dal
             }
         }
 
-        public static List<Groepsreis> OphalenGroepreizen()
+        public static ObservableCollection<Groepsreis> OphalenGroepreizen()
         {
             using (GroepsreizenBeheerContext ctx = new GroepsreizenBeheerContext())
             {
-                return ctx.Groepsreizen.Include(gr => gr.Thema).Include(gr => gr.Leeftijdscategorie).Include(gr => gr.Bestemming).ToList();
+                List<Groepsreis> groepsreizenLijst = ctx.Groepsreizen
+                    .Include(gr => gr.Thema)
+                    .Include(gr => gr.Leeftijdscategorie)
+                    .Include(gr => gr.Bestemming)
+                    .ToList();
+
+                ObservableCollection<Groepsreis> groepsreizenCollection = new ObservableCollection<Groepsreis>(groepsreizenLijst);
+                return groepsreizenCollection;
+            }
+        }
+        public static List<Thema> OphalenThemas() {
+            using (GroepsreizenBeheerContext ctx = new GroepsreizenBeheerContext())
+            {
+                List<Thema> themaLijst = ctx.Themas
+                    .ToList();
+                return themaLijst;
             }
         }
     }

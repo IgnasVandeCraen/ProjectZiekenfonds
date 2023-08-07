@@ -27,5 +27,19 @@ namespace models
 
         //Navigatieproperties
         public ICollection<Groepsreis> Groepsreizen { get; set; }
+
+        //Override
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !(obj is Thema))
+                return false;
+
+            return this.Id == ((Thema)obj).Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
 }
