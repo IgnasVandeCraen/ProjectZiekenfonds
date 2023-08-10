@@ -11,6 +11,8 @@ using Azure;
 using System.Globalization;
 using System.Collections.ObjectModel;
 using Microsoft.Data.SqlClient;
+using System.Security.AccessControl;
+using System.Windows.Input;
 
 namespace wpf.Viewmodels
 {
@@ -23,7 +25,6 @@ namespace wpf.Viewmodels
         }
 
         private Gebruiker _gebruiker;
-        private Uri _currentPage;
         private ObservableCollection<Groepsreis> _lijstGroepsreizen;
         private ObservableCollection<Groepsreis> _lijstGefilterdeReizen;
         private List<Thema> _lijstThemas;
@@ -31,21 +32,13 @@ namespace wpf.Viewmodels
         private Sorteervolgorde? _datumSorteervolgorde;
         private Sorteervolgorde? _prijsSorteervolgorde;
         private Thema _geselecteerdThema;
+        private string _successMessage;
+        private string _errorMessage;
 
         public Gebruiker Gebruiker
         {
             get { return _gebruiker; }
             set { _gebruiker = value; }
-        }
-
-        public Uri CurrentPage
-        {
-            get { return _currentPage; }
-            set
-            {
-                _currentPage = value;
-                NotifyPropertyChanged();
-            }
         }
 
         public ObservableCollection<Groepsreis> LijstGroepsreizen
@@ -124,8 +117,28 @@ namespace wpf.Viewmodels
             }
         }
 
+        public string SuccessMessage
+        {
+            get { return _successMessage; }
+            set
+            {
+                _successMessage = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                NotifyPropertyChanged();
+                SuccessMessage = "";
+            }
+        }
+
         public MainViewmodel() {
-            CurrentPage = new Uri("pack://application:,,,/Views/GroepsreizenView.xaml");
             LijstGroepsreizen = DatabaseOperations.OphalenGroepreizen();
             LijstThemas = DatabaseOperations.OphalenThemas();
         }
@@ -137,7 +150,7 @@ namespace wpf.Viewmodels
                 return "";
             }
         }
-
+        //Uitloggen
         public void Uitloggen()
         {
             Gebruiker = null;
@@ -154,6 +167,20 @@ namespace wpf.Viewmodels
             if (mainView != null)
             {
                 mainView.Close();
+            }
+        }
+        //Amdin paneel openen
+        public void OpenAdmin()
+        {
+            if (Gebruiker != null && Gebruiker.Admin)
+            {
+                AdminView adminView = new AdminView();
+                MainView mainView = Application.Current.Windows.OfType<MainView>().FirstOrDefault();
+                mainView.mainFrame.Content = adminView;
+            }
+            else
+            {
+                ErrorMessage = "Je hebt geen admin rechten!";
             }
         }
         //Filters
@@ -206,17 +233,84 @@ namespace wpf.Viewmodels
             FilterReizen();
         }
 
+        //Inschrijven
+        private void Inschrijven(object parameter)
+        {
+            if (parameter is Groepsreis gr && Gebruiker != null)
+            {
+                if (KanInschrijven(gr))
+                {
+                    Inschrijving inschrijving = new Inschrijving
+                    {
+                        GroepsreisId = gr.Id,
+                        GebruikerId = Gebruiker.Id
+                    };
+
+                    int ok = DatabaseOperations.ToevoegenInschrijving(inschrijving);
+
+                    if (ok > 0)
+                    {
+                        LijstGroepsreizen = DatabaseOperations.OphalenGroepreizen();
+                        SuccessMessage = "Je bent ingeschreven!";
+                    }
+                    else
+                    {
+                        ErrorMessage = "Er is iets minder misgelopen";
+                    }
+                }
+            }
+            else { ErrorMessage = "Er is iets misgelopen"; }
+        }
+
+        private bool KanInschrijven(Groepsreis gr)
+        {
+            List<string> errors = new List<string>();
+
+            if (Gebruiker.LeeftijdscategorieId != gr.LeeftijdscategorieId)
+            {
+                errors.Add("Je leeftijdscategorie moet overeenkomen met de leeftijdscategie van de reis");
+            }
+
+            if (gr.Startdatum <= DateTime.Now)
+            {
+                errors.Add("Je bent te laat voor deze reis");
+            }
+
+            if (gr.Inschrijvingen.Count >= gr.MaxInschrijvingen)
+            {
+                errors.Add("Deze reis is al volgeboekt");
+            }
+
+            if (gr.Inschrijvingen.Any(i => i.GebruikerId == Gebruiker.Id))
+            {
+                errors.Add("Je bent al ingeschreven voor deze reis");
+            }
+
+            if (errors.Count > 0)
+            {
+                ErrorMessage = string.Join("\n", errors);
+                return false;
+            }
+
+            ErrorMessage = "";
+            return true;
+        }
+
         public override bool CanExecute(object parameter)
         {
             switch (parameter.ToString())
             {
                 case "Uitloggen":
                     return true;
+                case "OpenAdmin":
+                    return true;
                 case "VerwijderFilters":
                     return !(string.IsNullOrWhiteSpace(ZoekText)
                      && DatumSorteervolgorde == null
                      && PrijsSorteervolgorde == null
                      && GeselecteerdThema == null);
+                case "Inschrijven":
+                    return true;
                 default:
                     return false;
             }
@@ -227,7 +321,9 @@ namespace wpf.Viewmodels
             switch (parameter.ToString())
             {
                 case "Uitloggen": Uitloggen(); break;
+                case "OpenAdmin": OpenAdmin(); break;
                 case "VerwijderFilters": VerwijderFilters(); break;
+                //case "Inschrijven": Inschrijven(); break;
             }
         }
     }

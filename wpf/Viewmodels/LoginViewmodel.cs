@@ -72,12 +72,18 @@ namespace wpf.Viewmodels
                 {
                     if (Wachtwoord == g.Wachtwoord)
                     {
-                        //Main openen
+                        //MainViewmodel openen
                         var mainVM = new MainViewmodel();
                         mainVM.Gebruiker = g;
 
+                        //GroepreizenView (page) openen
+                        var groepsreizenView = new GroepsreizenView();
+                        groepsreizenView.DataContext = mainVM;
+
+                        //MainView (window) openen
                         var mainView = new MainView();
                         mainView.DataContext = mainVM;
+                        mainView.mainFrame.Content = groepsreizenView;
                         mainView.Show();
 
                         //Login sluiten

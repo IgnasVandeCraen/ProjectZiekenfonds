@@ -24,7 +24,6 @@ namespace wpf
         public GroepsreizenView()
         {
             InitializeComponent();
-            this.DataContext = new MainViewmodel();
         }
     }
 }

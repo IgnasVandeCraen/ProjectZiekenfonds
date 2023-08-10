@@ -10,10 +10,18 @@
 
 	<Grid>
 		<DockPanel LastChildFill="True">
-			<Button DockPanel.Dock="Bottom" HorizontalAlignment="Right" Style="{StaticResource SmallButtonStyle}" >
-				ADMIN PANEEL 🡪
-			</Button>
-			<DockPanel LastChildFill="True" Margin="0,0,0,10" DockPanel.Dock="Top">
+            <Grid DockPanel.Dock="Bottom">
+                <StackPanel>
+                    <Label Content="{Binding ErrorMessage, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Foreground="Red" HorizontalAlignment="Left"/>
+                    <Label Content="{Binding SuccessMessage, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Foreground="Red" HorizontalAlignment="Left"/>
+                </StackPanel>
+
+                <Button x:Name="btnOpenAdmin" Command="{Binding}" CommandParameter="OpenAdmin" HorizontalAlignment="Right" Style="{StaticResource SmallButtonStyle}" >
+                    ADMIN PANEEL 🡪
+                </Button>
+            </Grid>
+            
+            <DockPanel LastChildFill="True" Margin="0,0,0,10" DockPanel.Dock="Top">
 				<Button DockPanel.Dock="Right" Style="{StaticResource CustomButtonStyle}">Profiel</Button>
 				<Border Background="{StaticResource PrimaryBrush}" CornerRadius="10" Height="40" Margin="0,0,10,0">
 					<TextBlock Text="Ons aanbod" Style="{StaticResource HeaderStyle}"/>
@@ -38,18 +46,18 @@
                 </ComboBox>
                 <Button Command="{Binding}" CommandParameter="VerwijderFilters" Content="VERWIJDER FILTERS" Style="{StaticResource SmallButtonStyle}" Margin="10,0,0,0" Foreground="#FF000D" VerticalAlignment="Bottom" FontSize="10" />
             </StackPanel>
-
-			<ScrollViewer>
+            <ScrollViewer>
 				<ItemsControl ItemsSource="{Binding LijstGefilterdeReizen}">
-					<ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemTemplate>
 						<DataTemplate>
-							<Border Background="#E2F2FD" Padding="10" CornerRadius="10" Margin="0,0,10,10">
-								<Grid>
+                            <Border Background="#E2F2FD" Padding="10" CornerRadius="10" Margin="0,0,10,10" >
+                                <Grid>
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="2*"/>
 										<ColumnDefinition Width="*"/>
 									</Grid.ColumnDefinitions>
 									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto"/>
 										<RowDefinition Height="Auto"/>
 										<RowDefinition Height="Auto"/>
 									</Grid.RowDefinitions>
@@ -64,8 +72,8 @@
 												<Run Text="€" />
 									</TextBlock>
 
-									<!-- Second Row -->
-									<StackPanel Grid.Row="1">
+									<!-- Second Row -->								
+                                    <StackPanel Grid.Row="1">
 										<TextBlock Foreground="{StaticResource PrimaryTextBrush}" FontWeight="Bold" FontSize="10">
 											<Run Text="Van:"/>
 											<Run Text="{Binding Startdatum, StringFormat='{}{0:dd/MM/yyyy}'}"/>
@@ -84,33 +92,45 @@
 										</StackPanel>
 									</StackPanel>
 
-									<TextBlock Grid.Row="1" Foreground="{StaticResource PrimaryTextBrush}" FontSize="10" VerticalAlignment="Bottom">
-										<TextBlock.Text>
-											<MultiBinding StringFormat="{}{0}, {1} {2}, {3}">
-												<Binding Path="Bestemming.Adres" FallbackValue="Adres ontbreekt"/>
-												<Binding Path="Bestemming.Postcode" FallbackValue=""/>
-												<Binding Path="Bestemming.Plaats" FallbackValue=""/>
-												<Binding Path="Bestemming.Land" FallbackValue=""/>
-											</MultiBinding>
-										</TextBlock.Text>
-									</TextBlock>
-
 									<StackPanel Grid.Column="1" Grid.Row="1">
-										<TextBlock Foreground="{StaticResource PrimaryTextBrush}" FontWeight="Bold" FontSize="10">
+                                        <TextBlock Foreground="{StaticResource PrimaryTextBrush}" FontWeight="Bold" FontSize="10">
 											<Run Text="Deelnemers"/>
 											<Run Text="2"/>
 											<Run Text="/"/>
 											<Run Text="{Binding MaxInschrijvingen}"/>
-										</TextBlock>
-										<TextBlock FontSize="10">Lorem ipsum dolor sit amet, consectetur porttitor.</TextBlock>
-										<TextBlock FontSize="10">Lorem ipsum dolor sit amet, consectetur porttitor.</TextBlock>
-										<TextBlock FontSize="10">Lorem ipsum dolor sit amet, consectetur porttitor.</TextBlock>
-										<TextBlock FontSize="10">Lorem ipsum dolor sit amet, consectetur porttitor.</TextBlock>
-										<TextBlock FontSize="10">Lorem ipsum dolor sit amet, consectetur porttitor.</TextBlock>
-										<TextBlock FontSize="10">Lorem ipsum dolor sit amet, consectetur porttitor.</TextBlock>
-										<Button Style="{StaticResource CustomButtonStyle}" Width="90" Margin="0,10,0,0" HorizontalAlignment="Right">inschrijven</Button>
-									</StackPanel>
-								</Grid>
+                                        </TextBlock>
+                                        <ItemsControl ItemsSource="{Binding Inschrijvingen}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock FontSize="10">
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}- {0} {1}">
+                                                                <Binding Path="Gebruiker.Voornaam"/>
+                                                                <Binding Path="Gebruiker.Achternaam"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </StackPanel>
+                                    <!-- Third Row -->
+                                    <TextBlock Grid.Row="2" Foreground="{StaticResource PrimaryTextBrush}" FontSize="10" VerticalAlignment="Bottom">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0}, {1} {2}, {3}">
+                                                <Binding Path="Bestemming.Adres" FallbackValue="Adres ontbreekt"/>
+                                                <Binding Path="Bestemming.Postcode" FallbackValue=""/>
+                                                <Binding Path="Bestemming.Plaats" FallbackValue=""/>
+                                                <Binding Path="Bestemming.Land" FallbackValue=""/>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                    <Button x:Name="btnInschrijven"
+
+										Grid.Column="1" Grid.Row="2"
+										Style="{StaticResource CustomButtonStyle}" Width="90" Margin="0,10,0,0" HorizontalAlignment="Right"
+										Content="inschrijven"/>
+                                </Grid>
 							</Border>
 						</DataTemplate>
 					</ItemsControl.ItemTemplate>
