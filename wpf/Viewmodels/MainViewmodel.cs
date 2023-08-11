@@ -13,6 +13,7 @@ using System.Collections.ObjectModel;
 using Microsoft.Data.SqlClient;
 using System.Security.AccessControl;
 using System.Windows.Input;
+using wpf.Views;
 
 namespace wpf.Viewmodels
 {
@@ -134,7 +135,6 @@ namespace wpf.Viewmodels
             {
                 _errorMessage = value;
                 NotifyPropertyChanged();
-                SuccessMessage = "";
             }
         }
 
@@ -169,13 +169,34 @@ namespace wpf.Viewmodels
                 mainView.Close();
             }
         }
-        //Amdin paneel openen
+        //Profiel openen
+        public void OpenProfiel()
+        {
+            if (Gebruiker != null)
+            {
+                //ProfielViewmodel openen
+                var profielVM = new ProfielViewmodel(Gebruiker);
+
+                //ProfielView (page) openen
+                var profielView = new ProfielView();
+                profielView.DataContext = profielVM;
+                var mainView = Application.Current.Windows.OfType<MainView>().FirstOrDefault();
+                mainView.mainFrame.Content = profielView;
+            }
+        }
+
+        //Admin paneel openen
         public void OpenAdmin()
         {
             if (Gebruiker != null && Gebruiker.Admin)
             {
-                AdminView adminView = new AdminView();
-                MainView mainView = Application.Current.Windows.OfType<MainView>().FirstOrDefault();
+                //AdminViewmodel openen
+                var adminVM = new AdminViewmodel();
+
+                //AdminView (page) openen
+                var adminView = new AdminView();
+                adminView.DataContext = adminVM;
+                var mainView = Application.Current.Windows.OfType<MainView>().FirstOrDefault();
                 mainView.mainFrame.Content = adminView;
             }
             else
@@ -255,7 +276,7 @@ namespace wpf.Viewmodels
                     }
                     else
                     {
-                        ErrorMessage = "Er is iets minder misgelopen";
+                        ErrorMessage = "Er is iets misgelopen";
                     }
                 }
             }
@@ -302,6 +323,8 @@ namespace wpf.Viewmodels
             {
                 case "Uitloggen":
                     return true;
+                case "OpenProfiel":
+                    return true;
                 case "OpenAdmin":
                     return true;
                 case "VerwijderFilters":
@@ -321,6 +344,7 @@ namespace wpf.Viewmodels
             switch (parameter.ToString())
             {
                 case "Uitloggen": Uitloggen(); break;
+                case "OpenProfiel": OpenProfiel(); break;
                 case "OpenAdmin": OpenAdmin(); break;
                 case "VerwijderFilters": VerwijderFilters(); break;
                 //case "Inschrijven": Inschrijven(); break;

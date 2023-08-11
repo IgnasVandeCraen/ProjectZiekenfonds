@@ -11,24 +11,107 @@
     <Grid>
         <StackPanel>
             <DockPanel LastChildFill="True" Margin="0,0,0,10">
-                <Button Click="Terug_Click" DockPanel.Dock="Left" Style="{StaticResource CustomButtonStyle}">🡨</Button>
+                <Button x:Name="btnTerug" Command="{Binding}" CommandParameter="Terug" DockPanel.Dock="Left" Style="{StaticResource CustomButtonStyle}">🡨</Button>
                 <Border Background="{StaticResource PrimaryBrush}" CornerRadius="10" Height="40" Margin="10,0,0,0">
                     <TextBlock Text="Admin paneel" Style="{StaticResource HeaderStyle}"/>
                 </Border>
             </DockPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Frame x:Name="adminFrame" NavigationUIVisibility="Hidden"/>
+                <Border CornerRadius="10" BorderBrush="{StaticResource AccentBrush}" BorderThickness="2" Margin="0,0,10,0" VerticalAlignment="Top">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource HeaderStyle}" FontWeight="Regular">Groepsreizen</TextBlock>
+                        <ListBox Grid.Row="1" ItemsSource="{Binding LijstGroepsreizen}" SelectedItem="{Binding GeselecteerdeGroepreis}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Naam}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <Button x:Name="btnNieuw" Command="{Binding}" CommandParameter="Nieuw" Style="{StaticResource CustomButtonStyle}" Margin="5" HorizontalAlignment="Right">➕</Button>
+                    </StackPanel>
+                </Border>
+                
+                <StackPanel Grid.Column="1">
+                    <StackPanel>
+                        <Label Margin="0,0,0,-5">Naam:</Label>
+                        <TextBox Width="340" Height="30" Style="{StaticResource FieldStyle}" Text="{Binding GeselecteerdeGroepreis.Naam}"/>
+                        <Label Margin="0,0,0,-5">Beschrijving:</Label>
+                        <TextBox Width="340" Height="60" Style="{StaticResource FieldStyle}" Text="{Binding GeselecteerdeGroepreis.Beschrijving}"  TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" />
+                        <StackPanel Margin="0,5" Orientation="Horizontal">
+                            <Label>Startdatum:</Label>
+                            <DatePicker SelectedDate="{Binding GeselecteerdeGroepreis.Startdatum}" />
+                            <Label>Einddatum:</Label>
+                            <DatePicker SelectedDate="{Binding GeselecteerdeGroepreis.Einddatum}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Max Inschrijvingen:</Label>
+                            <TextBox Width="60" Height="30" Style="{StaticResource FieldStyle}" Text="{Binding GeselecteerdeGroepreis.MaxInschrijvingen}"/>
+                            <Label>Prijs:</Label>
+                            <TextBox Width="60" Height="30" Style="{StaticResource FieldStyle}" Text="{Binding GeselecteerdeGroepreis.Prijs}"/>
+                        </StackPanel>
 
-                <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                    <Button Click="Gebruikers_Click" Margin="0,0,0,10" Style="{StaticResource CustomButtonStyle}">Gebruikers</Button>
-                    <Button Click="Reizen_Click" Margin="0,0,0,10" Style="{StaticResource CustomButtonStyle}">Reizen</Button>
-                    <Button Margin="0,0,0,10" Style="{StaticResource CustomButtonStyle}">Bestemmingen</Button>
-                    <Button Margin="0,0,0,10" Style="{StaticResource CustomButtonStyle}">Thema's</Button>
+
+                        <ComboBox Width="200" Height="20" Margin="0,10,0,0" HorizontalAlignment="Left" 
+                          ItemsSource="{Binding LijstLeeftijdscategorieen}" 
+                          SelectedItem="{Binding GeselecteerdeGroepreis.Leeftijdscategorie}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Naam}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <ComboBox Width="200" Height="20" Margin="0,10,0,0" HorizontalAlignment="Left" 
+                          ItemsSource="{Binding LijstBestemmingen}" 
+                          SelectedItem="{Binding GeselecteerdeGroepreis.Bestemming}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0}, {1} {2}, {3}">
+                                                <Binding Path="Adres"/>
+                                                <Binding Path="Postcode"/>
+                                                <Binding Path="Plaats"/>
+                                                <Binding Path="Land"/>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <ComboBox Width="200" Height="20" Margin="0,10,0,0" HorizontalAlignment="Left" 
+                          ItemsSource="{Binding LijstThemas}" 
+                          SelectedItem="{Binding GeselecteerdeGroepreis.Thema}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Naam}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                        <Button x:Name="btnVerwijderen" Command="{Binding}" CommandParameter="Verwijderen" Style="{StaticResource SmallButtonStyle}" Margin="0,0,10,0" Foreground="#FF000D" VerticalAlignment="Bottom" FontSize="10">VERWIJDEREN</Button>
+                        <Button x:Name="btnAanpassen" Command="{Binding}" CommandParameter="Aanpassen" Style="{StaticResource CustomButtonStyle}" Margin="0,0,10,0">Aanpassen</Button>
+                        <Button x:Name="btnToevoegen" Command="{Binding}" CommandParameter="Toevoegen" Style="{StaticResource CustomButtonStyle}">Toevoegen</Button>
+                    </StackPanel>
+                </StackPanel>
+                
+
+                <StackPanel Grid.Column="2" Margin="10,0,0,0">
+                    <Button Margin="0,0,0,10" Style="{StaticResource CustomButtonStyle}">Gebruiker ➕</Button>
+                    <Button Margin="0,0,0,10" Style="{StaticResource CustomButtonStyle}">Bestemmingen ➕</Button>
+                    <Button Margin="0,0,0,10" Style="{StaticResource CustomButtonStyle}">Thema's ➕</Button>
+                </StackPanel>
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                    <Label Content="{Binding ErrorMessage, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Foreground="Red" HorizontalAlignment="Left"/>
+                    <Label Content="{Binding SuccessMessage, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Foreground="Green" HorizontalAlignment="Left"/>
                 </StackPanel>
             </Grid>
         </StackPanel>

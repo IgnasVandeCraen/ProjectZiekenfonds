@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace wpf
+namespace wpf.Views
 {
     /// <summary>
-    /// Interaction logic for AdminGebruikersView.xaml
+    /// Interaction logic for ProfielView.xaml
     /// </summary>
-    public partial class AdminGebruikersView : Page
+    public partial class ProfielView : Page
     {
-        public AdminGebruikersView()
+        public ProfielView()
         {
             InitializeComponent();
         }

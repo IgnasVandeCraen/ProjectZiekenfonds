@@ -51,8 +51,8 @@ namespace wpf.Viewmodels
 
         public LoginViewmodel() {
             //Veranderen naar placeholders!!
-            Email = "gebruiker1@example.com";
-            Wachtwoord = "wachtwoord1";
+            Email = "gebruiker2@example.com";
+            Wachtwoord = "wachtwoord2";
         }
 
         public override string this[string columnName]

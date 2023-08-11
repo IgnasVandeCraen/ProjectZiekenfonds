@@ -24,19 +24,5 @@ namespace wpf
         {
             InitializeComponent();
         }
-
-        private void Terug_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new GroepsreizenView());
-        }
-
-        private void Gebruikers_Click(object sender, RoutedEventArgs e)
-        {
-            adminFrame.NavigationService.Navigate(new AdminGebruikersView());
-        }
-
-        private void Reizen_Click(object sender, RoutedEventArgs e)
-        {
-        }
     }
 }

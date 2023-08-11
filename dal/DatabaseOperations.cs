@@ -33,6 +33,26 @@ namespace dal
             }
         }
 
+        public static List<Leeftijdscategorie> OphalenLeeftijdscategorieen()
+        {
+            using (GroepsreizenBeheerContext ctx = new GroepsreizenBeheerContext())
+            {
+                List<Leeftijdscategorie> leeftijdscategorieLijst = ctx.Leeftijdscategorieen
+                    .ToList();
+                return leeftijdscategorieLijst;
+            }
+        }
+
+        public static List<Bestemming> OphalenBestemmingen()
+        {
+            using (GroepsreizenBeheerContext ctx = new GroepsreizenBeheerContext())
+            {
+                List<Bestemming> bestemmingLijst = ctx.Bestemmingen
+                    .ToList();
+                return bestemmingLijst;
+            }
+        }
+
         public static List<Thema> OphalenThemas() {
             using (GroepsreizenBeheerContext ctx = new GroepsreizenBeheerContext())
             {
@@ -41,7 +61,7 @@ namespace dal
                 return themaLijst;
             }
         }
-
+        
         public static int ToevoegenInschrijving(Inschrijving inschrijving)
         {
             try
@@ -49,6 +69,72 @@ namespace dal
                 using (GroepsreizenBeheerContext ctx = new GroepsreizenBeheerContext())
                 {
                     ctx.Inschrijvingen.Add(inschrijving);
+                    return ctx.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                FileOperations.FoutLoggen(ex);
+                return 0;
+            }
+        }
+        
+        public static ObservableCollection<Inschrijving> OphalenInschrijvingenViaGebruikerId(int id)
+        {
+            using (GroepsreizenBeheerContext ctx = new GroepsreizenBeheerContext())
+            {
+                List<Inschrijving> inschrijvingenLijst = ctx.Inschrijvingen
+                    .Where(i => i.GebruikerId  == id)
+                    .Include(i => i.Groepsreis)
+                    .ToList();
+
+                ObservableCollection<Inschrijving> inschrijvingenCollection = new ObservableCollection<Inschrijving>(inschrijvingenLijst);
+
+                return inschrijvingenCollection;
+            }
+        }
+
+        public static int ToevoegenGroepreis(Groepsreis groepreis)
+        {
+            try
+            {
+                using (GroepsreizenBeheerContext ctx = new GroepsreizenBeheerContext())
+                {
+                    ctx.Groepsreizen.Add(groepreis);
+                    return ctx.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                FileOperations.FoutLoggen(ex);
+                return 0;
+            }
+        }
+
+        public static int AanpassenGroepreis(Groepsreis groepreis)
+        {
+            try
+            {
+                using (GroepsreizenBeheerContext ctx = new GroepsreizenBeheerContext())
+                {
+                    ctx.Entry(groepreis).State = EntityState.Modified;
+                    return ctx.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                FileOperations.FoutLoggen(ex);
+                return 0;
+            }
+        }
+
+        public static int VerwijderenGroepreis(Groepsreis groepreis)
+        {
+            try
+            {
+                using (GroepsreizenBeheerContext ctx = new GroepsreizenBeheerContext())
+                {
+                    ctx.Entry(groepreis).State = EntityState.Deleted;
                     return ctx.SaveChanges();
                 }
             }
