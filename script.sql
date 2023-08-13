@@ -38,16 +38,16 @@ INSERT INTO Gebruikers ([email], [wachtwoord], [voornaam], [achternaam], [admin]
 INSERT INTO Gebruikers ([email], [wachtwoord], [voornaam], [achternaam], [admin], [lid], [medischeGegevens], [aanmaakdatum], [leeftijdscategorieId]) VALUES ('gebruiker16@example.com', 'wachtwoord16', 'Sophie', 'Mulder', 0, 1, NULL, '2023-08-01', 2);
 GO
 
-INSERT INTO Inschrijvingen ([gebruikerId], [groepreisId]) VALUES (1, 4);
-INSERT INTO Inschrijvingen ([gebruikerId], [groepreisId]) VALUES (2, 1);
-INSERT INTO Inschrijvingen ([gebruikerId], [groepreisId]) VALUES (3, 2);
-INSERT INTO Inschrijvingen ([gebruikerId], [groepreisId]) VALUES (4, 7);
-INSERT INTO Inschrijvingen ([gebruikerId], [groepreisId]) VALUES (5, 5);
-INSERT INTO Inschrijvingen ([gebruikerId], [groepreisId]) VALUES (6, 3);
-INSERT INTO Inschrijvingen ([gebruikerId], [groepreisId]) VALUES (7, 4);
-INSERT INTO Inschrijvingen ([gebruikerId], [groepreisId]) VALUES (8, 1);
-INSERT INTO Inschrijvingen ([gebruikerId], [groepreisId]) VALUES (9, 2);
-INSERT INTO Inschrijvingen ([gebruikerId], [groepreisId]) VALUES (10, 7);
+INSERT INTO Inschrijvingen ([gebruikerId], [groepsreisId]) VALUES (1, 4);
+INSERT INTO Inschrijvingen ([gebruikerId], [groepsreisId]) VALUES (2, 1);
+INSERT INTO Inschrijvingen ([gebruikerId], [groepsreisId]) VALUES (3, 2);
+INSERT INTO Inschrijvingen ([gebruikerId], [groepsreisId]) VALUES (4, 7);
+INSERT INTO Inschrijvingen ([gebruikerId], [groepsreisId]) VALUES (5, 5);
+INSERT INTO Inschrijvingen ([gebruikerId], [groepsreisId]) VALUES (6, 3);
+INSERT INTO Inschrijvingen ([gebruikerId], [groepsreisId]) VALUES (7, 4);
+INSERT INTO Inschrijvingen ([gebruikerId], [groepsreisId]) VALUES (8, 1);
+INSERT INTO Inschrijvingen ([gebruikerId], [groepsreisId]) VALUES (9, 2);
+INSERT INTO Inschrijvingen ([gebruikerId], [groepsreisId]) VALUES (10, 7);
 GO
 
 INSERT INTO Groepsreizen ([naam], [beschrijving], [startdatum], [einddatum], [maxInschrijvingen], [prijs], [aanmaakdatum], [leeftijdscategorieId], [bestemmingId], [themaId]) VALUES (N'Avontuurlijke Reis naar New York', N'Een spannende avontuurlijke reis naar New York', '2023-09-15', '2023-09-25', 4, 1500.00, '2023-08-01', 2, 1, 1);

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace wpf.Viewmodels
@@ -45,7 +41,7 @@ namespace wpf.Viewmodels
             {
                 string foutmeldingen = "";
 
-                foreach (var item in this.GetType().GetProperties()) //reflection
+                foreach (var item in this.GetType().GetProperties())
                 {
                     if (item.CanRead)
                     {

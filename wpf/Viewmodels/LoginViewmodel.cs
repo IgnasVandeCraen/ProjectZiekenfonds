@@ -1,15 +1,9 @@
-﻿using models;
-using dal;
-using System;
+﻿using dal;
+using models;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-using System.Windows;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Windows;
 
 namespace wpf.Viewmodels
 {
@@ -50,9 +44,8 @@ namespace wpf.Viewmodels
         }
 
         public LoginViewmodel() {
-            //Veranderen naar placeholders!!
-            Email = "gebruiker2@example.com";
-            Wachtwoord = "wachtwoord2";
+            Email = "email";
+            Wachtwoord = "wachtwoord";
         }
 
         public override string this[string columnName]

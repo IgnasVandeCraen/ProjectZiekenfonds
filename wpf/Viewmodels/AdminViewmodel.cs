@@ -3,11 +3,9 @@ using models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using wpf.Views;
 
 namespace wpf.Viewmodels
 {
@@ -41,7 +39,7 @@ namespace wpf.Viewmodels
                 _geselecteerdeGroepreis = value;
                 NotifyPropertyChanged();
                 KanToevoegen = false;
-                KanAanpassen = true;
+                KanAanpassen = true;;
             }
         }
 
@@ -98,7 +96,6 @@ namespace wpf.Viewmodels
         public AdminViewmodel()
         {
             Refresh();
-            Nieuw();
         }
 
         public override string this[string columnName]
@@ -115,6 +112,7 @@ namespace wpf.Viewmodels
             LijstLeeftijdscategorieen = new List<Leeftijdscategorie>(DatabaseOperations.OphalenLeeftijdscategorieen());
             LijstBestemmingen = new List<Bestemming>(DatabaseOperations.OphalenBestemmingen());
             LijstThemas = new List<Thema>(DatabaseOperations.OphalenThemas());
+            Nieuw();
         }
 
         public void Terug()
@@ -247,6 +245,22 @@ namespace wpf.Viewmodels
             return true;
         }
 
+        public void GebruikerToevoegen()
+        {
+            var gebruikerToevoegenVM = new GebruikerToevoegenViewmodel();
+            var gebruikerToevoegenView = new GebruikerToevoegenView();
+            gebruikerToevoegenView.DataContext = gebruikerToevoegenVM;
+            gebruikerToevoegenView.Show();
+        }
+
+        public void BestemmingToevoegen()
+        {
+            var bestemmingToevoegenVM = new BestemmingToevoegenViewmodel(this);
+            var bestemmingToevoegenView = new BestemmingToevoegenView();
+            bestemmingToevoegenView.DataContext = bestemmingToevoegenVM;
+            bestemmingToevoegenView.Show();
+        }
+
         public override bool CanExecute(object parameter)
         {
             switch (parameter.ToString())
@@ -261,6 +275,10 @@ namespace wpf.Viewmodels
                     return KanAanpassen;
                 case "Verwijderen":
                     return KanAanpassen;
+                case "GebruikerToevoegen":
+                    return true;
+                case "BestemmingToevoegen":
+                    return true;
                 default:
                     return false;
             }
@@ -275,6 +293,8 @@ namespace wpf.Viewmodels
                 case "Toevoegen": Toevoegen(); break;
                 case "Aanpassen": Aanpassen(); break;
                 case "Verwijderen": Verwijderen(); break;
+                case "GebruikerToevoegen": GebruikerToevoegen(); break;
+                case "BestemmingToevoegen": BestemmingToevoegen(); break;
             }
         }
     }

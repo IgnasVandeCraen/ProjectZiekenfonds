@@ -1,9 +1,8 @@
 ﻿<Page x:Class="wpf.Views.ProfielView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:wpf.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ProfielView">
@@ -18,22 +17,38 @@
             </DockPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                    <Label Content="{Binding Gebruiker.Voornaam}" />
+                <StackPanel Margin="10,0,0,0">
+                    <Label Content="Email" />
+                    <Label Content="Voornaam:" />
+                    <Label Content="Achternaam: " />
+                    <Label Content="Lid ziekenfonds: " />
+                    <Label Content="Medische gegevens:" />
                 </StackPanel>
-                <ListBox Grid.Row="1" ItemsSource="{Binding LijstInschrijvingen}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <TextBlock Text="{Binding Groepsreis.Naam}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                <StackPanel Grid.Column="1" Margin="0,0,0,0">
+                    <Label Content="{Binding Gebruiker.Email}" />
+                    <Label Content="{Binding Gebruiker.Voornaam}" />
+                    <Label Content="{Binding Gebruiker.Achternaam}" />
+                    <Label Content="{Binding Gebruiker.Lid}" />
+                    <Label Content="{Binding Gebruiker.MedischeGegevens}" />
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="Jouw reizen:" Foreground="{StaticResource PrimaryTextBrush}" FontWeight="Bold" />
+                    <ListBox ItemsSource="{Binding LijstInschrijvingen}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Groepsreis.Naam}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+                
             </Grid>
         </StackPanel>
     </Grid>

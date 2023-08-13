@@ -68,8 +68,8 @@ namespace dal.Migrations
 
                     b.Property<string>("Achternaam")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<bool>("Admin")
                         .HasColumnType("bit");
@@ -91,8 +91,8 @@ namespace dal.Migrations
 
                     b.Property<string>("Voornaam")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<string>("Wachtwoord")
                         .IsRequired()

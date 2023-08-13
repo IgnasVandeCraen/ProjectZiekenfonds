@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace models
 {
@@ -44,6 +39,7 @@ namespace models
         public int? BestemmingId { get; set; }
 
         public int? ThemaId { get; set; }
+
 
         //Navigatieproperties
         public ICollection<Inschrijving> Inschrijvingen { get; set; }

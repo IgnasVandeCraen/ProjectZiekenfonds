@@ -1,5 +1,4 @@
-﻿using Azure.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using models;
 using System.Collections.ObjectModel;
 
@@ -61,7 +60,22 @@ namespace dal
                 return themaLijst;
             }
         }
-        
+
+        public static ObservableCollection<Inschrijving> OphalenInschrijvingenViaGebruikerId(int id)
+        {
+            using (GroepsreizenBeheerContext ctx = new GroepsreizenBeheerContext())
+            {
+                List<Inschrijving> inschrijvingenLijst = ctx.Inschrijvingen
+                    .Where(i => i.GebruikerId  == id)
+                    .Include(i => i.Groepsreis)
+                    .ToList();
+
+                ObservableCollection<Inschrijving> inschrijvingenCollection = new ObservableCollection<Inschrijving>(inschrijvingenLijst);
+
+                return inschrijvingenCollection;
+            }
+        }
+
         public static int ToevoegenInschrijving(Inschrijving inschrijving)
         {
             try
@@ -76,21 +90,6 @@ namespace dal
             {
                 FileOperations.FoutLoggen(ex);
                 return 0;
-            }
-        }
-        
-        public static ObservableCollection<Inschrijving> OphalenInschrijvingenViaGebruikerId(int id)
-        {
-            using (GroepsreizenBeheerContext ctx = new GroepsreizenBeheerContext())
-            {
-                List<Inschrijving> inschrijvingenLijst = ctx.Inschrijvingen
-                    .Where(i => i.GebruikerId  == id)
-                    .Include(i => i.Groepsreis)
-                    .ToList();
-
-                ObservableCollection<Inschrijving> inschrijvingenCollection = new ObservableCollection<Inschrijving>(inschrijvingenLijst);
-
-                return inschrijvingenCollection;
             }
         }
 
@@ -135,6 +134,40 @@ namespace dal
                 using (GroepsreizenBeheerContext ctx = new GroepsreizenBeheerContext())
                 {
                     ctx.Entry(groepreis).State = EntityState.Deleted;
+                    return ctx.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                FileOperations.FoutLoggen(ex);
+                return 0;
+            }
+        }
+
+        public static int ToevoegenGebruiker(Gebruiker gebruiker)
+        {
+            try
+            {
+                using (GroepsreizenBeheerContext ctx = new GroepsreizenBeheerContext())
+                {
+                    ctx.Gebruikers.Add(gebruiker);
+                    return ctx.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                FileOperations.FoutLoggen(ex);
+                return 0;
+            }
+        }
+
+        public static int ToevoegenBestemming(Bestemming bestemming)
+        {
+            try
+            {
+                using (GroepsreizenBeheerContext ctx = new GroepsreizenBeheerContext())
+                {
+                    ctx.Bestemmingen.Add(bestemming);
                     return ctx.SaveChanges();
                 }
             }

@@ -11,16 +11,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using wpf.Viewmodels;
 
-namespace wpf
+namespace wpf.Views
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for BestemmingToevoegenView.xaml
     /// </summary>
-    public partial class LoginView : Window
+    public partial class BestemmingToevoegenView : Window
     {
-        public LoginView()
+        public BestemmingToevoegenView()
         {
             InitializeComponent();
         }
